@@ -1,4 +1,4 @@
-#SevenTweets
+# SevenTweets
 
 SevenTweets is a network of mini services that should resemble twitter. Each service that
 will be part of SevenTweets can have different implementation but will be built to support
@@ -11,7 +11,7 @@ node in SevenTweets would:
 - Have to know addresses of all other nodes
 - Perform notifications to other nodes when starting/shutting down
 
-##API
+## API
 ```
 - GET /tweets
   - Returns: [{"id": 1, "name": "zeljko", "tweet": "this is tweet"}, …]
