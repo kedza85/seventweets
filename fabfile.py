@@ -6,7 +6,7 @@ env.user = 'root'
 name = 'seventweets'
 host_port = 80
 container_port = 8000
-repository = 'kedza/sewentweets'
+repository = 'kedza/seventweets'
 network = 'radionica'
 
 
