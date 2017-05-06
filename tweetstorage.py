@@ -6,7 +6,7 @@ class TweetStorage:
         return [k for k in self.tweets.values()]
 
     def get(self, id_):
-        return self.tweets[id_]
+        return self.tweets.get(id_)
 
     def add(self, name, tweet_text):
         id_ = self.id_counter
