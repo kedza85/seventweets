@@ -11,4 +11,4 @@ COPY . /usr/src/seventweets
 
 ENV GUNICORN_CMD_ARGS="--bind=0:${PORT} --worker-class=gthread --threads=10"
 
-CMD ["gunicorn", "seventweets:app"]
+CMD ["gunicorn", "-c gunicorn_config.py", "seventweets:app"]

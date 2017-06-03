@@ -20,6 +20,7 @@ db_volume = 'radionica-postgres-data'
 db_data_path = '/var/lib/postgresql/data'
 
 node_name = 'del'
+node_address = 'del.sedamcvrkuta.com'
 
 
 def build_image():
@@ -50,6 +51,7 @@ def start_service(db_pass, api_token):
         f'-e SEVENTWEETS_DB_PORT={db_port} ' 
         f'-e SEVENTWEETS_API_TOKEN={api_token} '
         f'-e SEVENTWEETS_NODE_NAME={node_name} '
+        f'-e SEVENTWEETS_NODE_ADDRESS={node_address} '
         f'-p {host_port}:{service_port} '
         f'{service_image}')
 
