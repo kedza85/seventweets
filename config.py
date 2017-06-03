@@ -17,5 +17,6 @@ class Config(object):
                      password=os.environ.get('SEVENTWEETS_DB_PASS', None),
                      unix_sock=None, ssl=None, timeout=None)
 
-    NODE_NAME = os.environ.get('SEVENTWEETS_NODE_NAME', 'kedza')
+    NODE_NAME = os.environ.get('SEVENTWEETS_NODE_NAME', 'del')
+    NODE_ADDRESS = os.environ.get('SEVENTWEETS_NODE_ADDRESS', 'del.sedamcvrkuta.com')
     API_TOKEN = os.environ.get('SEVENTWEETS_API_TOKEN', generate_api_token())
