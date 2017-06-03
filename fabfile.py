@@ -19,6 +19,8 @@ db_name = 'radionica'
 db_volume = 'radionica-postgres-data'
 db_data_path = '/var/lib/postgresql/data'
 
+node_name = 'del'
+
 
 def build_image():
     local(f'docker build -t {service_image} . --build-arg PORT={service_port}')
@@ -37,7 +39,7 @@ def create_network():
         run(f'docker network create {network}')
 
 
-def start_service(db_pass=None):
+def start_service(db_pass, api_token):
     run(f'docker run -d '
         f'--name {service_container_name} '
         f'--net {network} '
@@ -46,6 +48,8 @@ def start_service(db_pass=None):
         f'-e SEVENTWEETS_DB_HOST={db_container_name} '
         f'-e SEVENTWEETS_DB_NAME={db_name} '
         f'-e SEVENTWEETS_DB_PORT={db_port} ' 
+        f'-e SEVENTWEETS_API_TOKEN={api_token} '
+        f'-e SEVENTWEETS_NODE_NAME={node_name} '
         f'-p {host_port}:{service_port} '
         f'{service_image}')
 
@@ -56,7 +60,7 @@ def stop_service():
         run(f'docker rm {service_container_name}')
 
 
-def restart_service(db_pass=None):
+def restart_service(db_pass):
     stop_service()
     start_service(db_pass)
 
@@ -66,7 +70,7 @@ def create_db_volume():
         run(f'docker volume create {db_volume}')
 
 
-def start_db(db_pass=None):
+def start_db(db_pass):
     with settings(warn_only=True):
         run(f'docker run -d '
             f'--name {db_container_name} '
@@ -98,7 +102,7 @@ def migrate_db(db_pass):
         'python3 -m migrations')
 
 
-def deploy(db_pass=None):
+def deploy(db_pass, api_token):
     build_image()
     push_image()
     pull_image()
@@ -109,6 +113,6 @@ def deploy(db_pass=None):
     stop_service()
     start_db(db_pass)
     migrate_db(db_pass)
-    start_service(db_pass)
+    start_service(db_pass, api_token)
 
 

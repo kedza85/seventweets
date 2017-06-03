@@ -3,11 +3,13 @@ import json
 from flask import Flask, request, jsonify
 from tweetstorage import TweetDBStorage
 from config import Config
+from auth import auth
 
 storage = None
 app = Flask(__name__)
 
 storage = TweetDBStorage()
+
 
 @app.before_first_request
 def init_storage():
@@ -38,6 +40,7 @@ def new_tweet():
 
 
 @app.route('/tweets/<int:id_>', methods=['DELETE'])
+@auth
 def delete_tweet(id_):
     storage.remove(id_)
     return '', 204
